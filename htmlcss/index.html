@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraAI - Intelligent Social Media Manager</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                </div>
+                <h2>Aura<span>AI</span></h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" id="nav-dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#writer" class="nav-item" id="nav-writer">
+                    <i class="fa-solid fa-pen-nib"></i>
+                    <span>AI Writer</span>
+                </a>
+                <a href="#imagegen" class="nav-item" id="nav-imagegen">
+                    <i class="fa-solid fa-image"></i>
+                    <span>AI Designer</span>
+                </a>
+                <a href="#scheduler" class="nav-item" id="nav-scheduler">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span>Scheduler</span>
+                </a>
+                <a href="#inbox" class="nav-item" id="nav-inbox">
+                    <i class="fa-solid fa-inbox"></i>
+                    <span>Smart Inbox</span>
+                    <span class="badge badge-pulse" id="inbox-badge-count">3</span>
+                </a>
+                <a href="#settings" class="nav-item" id="nav-settings">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="User Avatar" class="avatar">
+                    <div class="user-info">
+                        <span class="user-name">Sarah Jenkins</span>
+                        <span class="user-role">Brand Manager</span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard</h1>
+                    <p id="page-subtitle" class="text-muted">Welcome back, Sarah. Here's your brand's performance overview.</p>
+                </div>
+                <div class="header-right">
+                    <div class="brand-selector">
+                        <i class="fa-solid fa-briefcase"></i>
+                        <select id="active-brand-select">
+                            <option value="eco-mug">EcoMug Co.</option>
+                            <option value="tech-flow">TechFlow App</option>
+                            <option value="luxe-wear">LuxeWear Boutique</option>
+                        </select>
+                    </div>
+                    <div class="notification-bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+            </header>
+            <!-- Dashboard View -->
+            <section id="view-dashboard" class="content-view active">
+                <!-- Stats Grid -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon followers">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Total Followers</span>
+                            <h3 class="stat-value" id="stat-followers">48.2k</h3>
+                            <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +12.4% this month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon engagement">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Engagement Rate</span>
+                            <h3 class="stat-value" id="stat-engagement">4.8%</h3>
+                            <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +0.6% this week</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon reach">
+                            <i class="fa-solid fa-eye"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Monthly Reach</span>
+                            <h3 class="stat-value" id="stat-reach">142.8k</h3>
+                            <span class="stat-trend trend-down"><i class="fa-solid fa-arrow-trend-down"></i> -2.1% this month</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon sentiment">
+                            <i class="fa-solid fa-face-smile"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Positive Sentiment</span>
+                            <h3 class="stat-value" id="stat-sentiment">86.2%</h3>
+                            <span class="stat-trend trend-up"><i class="fa-solid fa-arrow-trend-up"></i> +3.4% this week</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Charts Layout -->
+                <div class="charts-container">
+                    <div class="chart-box glass">
+                        <div class="chart-header">
+                            <h3>Audience Growth & Engagement</h3>
+                            <div class="chart-actions">
+                                <button class="chart-tab active" data-period="7d">7 Days</button>
+                                <button class="chart-tab" data-period="30d">30 Days</button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="growthChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-box glass compact">
+                        <div class="chart-header">
+                            <h3>Sentiment Breakdown</h3>
+                        </div>
+                        <div class="chart-wrapper sentiment-chart-wrapper">
+                            <canvas id="sentimentChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <!-- Bottom Dashboard Row -->
+                <div class="bottom-grid">
+                    <div class="recent-posts-box glass">
+                        <div class="box-header">
+                            <h3>Recent Scheduled Posts</h3>
+                            <a href="#scheduler" class="btn-link">View Calendar <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="recent-posts-list" id="dashboard-recent-posts">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                    
+                    <div class="brand-health-box glass">
+                        <div class="box-header">
+                            <h3>Brand Sentiment Health</h3>
+                        </div>
+                        <div class="sentiment-health-details">
+                            <div class="health-score-container">
+                                <h1 id="brand-health-score">A+</h1>
+                                <span>Excellent Brand Image</span>
+                            </div>
+                            <div class="health-bars">
+                                <div class="health-bar-item">
+                                    <div class="bar-labels">
+                                        <span>Positive</span>
+                                        <span>86%</span>
+                                    </div>
+                                    <div class="bar-outer"><div class="bar-inner positive" style="width: 86%"></div></div>
+                                </div>
+                                <div class="health-bar-item">
+                                    <div class="bar-labels">
+                                        <span>Neutral</span>
+                                        <span>10%</span>
+                                    </div>
+                                    <div class="bar-outer"><div class="bar-inner neutral" style="width: 10%"></div></div>
+                                </div>
+                                <div class="health-bar-item">
+                                    <div class="bar-labels">
+                                        <span>Negative</span>
+                                        <span>4%</span>
+                                    </div>
+                                    <div class="bar-outer"><div class="bar-inner negative" style="width: 4%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- AI Writer View -->
+            <section id="view-writer" class="content-view">
+                <div class="two-column-layout">
+                    <!-- Writer Controls -->
+                    <div class="editor-panel glass">
+                        <h3>Create Social Content</h3>
+                        <div class="form-group">
+                            <label for="writer-prompt">What should this post be about?</label>
+                            <textarea id="writer-prompt" placeholder="e.g. Introduce our new eco-friendly thermal coffee mug that keeps drinks hot for 12 hours. Mention a 10% discount launch code: MUG10."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="writer-platform">Select Target Platform</label>
+                                <select id="writer-platform">
+                                    <option value="twitter">X / Twitter</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="facebook">Facebook</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="writer-tone">Tone of Voice</label>
+                                <select id="writer-tone">
+                                    <option value="professional">Professional</option>
+                                    <option value="witty">Witty & Humorous</option>
+                                    <option value="enthusiastic">Enthusiastic & Hyper</option>
+                                    <option value="casual">Casual & Conversational</option>
+                                    <option value="educational">Educational / Value</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="writer-length">Length</label>
+                                <select id="writer-length">
+                                    <option value="short">Short (1-2 sentences)</option>
+                                    <option value="medium" selected>Medium (Standard Post)</option>
+                                    <option value="long">Long (Detailed/Thread-style)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="writer-hashtags">Hashtags</label>
+                                <select id="writer-hashtags">
+                                    <option value="auto">Auto-Generate AI Hashtags</option>
+                                    <option value="none">None</option>
+                                    <option value="minimal">Minimal (1-2)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="btn-generate-post" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Creative Content
+                        </button>
+                    </div>
+                    <!-- Live Preview & Output Panel -->
+                    <div class="preview-panel">
+                        <div class="preview-header-tabs">
+                            <span class="preview-tab active">Platform Preview</span>
+                            <span class="preview-tab-label" id="preview-platform-indicator">X / Twitter</span>
+                        </div>
+                        
+                        <!-- Post Previews Container -->
+                        <div class="preview-card-container glass">
+                            <!-- Twitter Card Preview -->
+                            <div class="platform-card twitter-card active" id="preview-card-twitter">
+                                <div class="card-header">
+                                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="Brand Logo" class="profile-pic">
+                                    <div class="profile-names">
+                                        <h4 class="brand-name-text">EcoMug Co.</h4>
+                                        <span class="handle">@EcoMugCo</span>
+                                    </div>
+                                    <i class="fa-brands fa-x-twitter platform-brand-icon"></i>
+                                </div>
+                                <div class="card-body">
+                                    <p class="post-text-content" id="twitter-preview-text">Your generated Twitter post will appear here once you write a prompt and click generate.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span><i class="fa-regular fa-comment"></i> 0</span>
+                                    <span><i class="fa-regular fa-handshake"></i> 0</span>
+                                    <span><i class="fa-regular fa-heart"></i> 0</span>
+                                    <span><i class="fa-regular fa-bookmark"></i></span>
+                                </div>
+                            </div>
+                            <!-- LinkedIn Card Preview -->
+                            <div class="platform-card linkedin-card" id="preview-card-linkedin">
+                                <div class="card-header">
+                                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="Brand Logo" class="profile-pic">
+                                    <div class="profile-names">
+                                        <h4 class="brand-name-text">EcoMug Co.</h4>
+                                        <span class="subtext">4,821 followers • 1h • Edited</span>
+                                    </div>
+                                    <i class="fa-brands fa-linkedin platform-brand-icon"></i>
+                                </div>
+                                <div class="card-body">
+                                    <p class="post-text-content" id="linkedin-preview-text">Your generated LinkedIn post will appear here.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span><i class="fa-regular fa-thumbs-up"></i> Like</span>
+                                    <span><i class="fa-regular fa-comment-dots"></i> Comment</span>
+                                    <span><i class="fa-solid fa-share-nodes"></i> Share</span>
+                                </div>
+                            </div>
+                            <!-- Instagram Card Preview -->
+                            <div class="platform-card instagram-card" id="preview-card-instagram">
+                                <div class="card-header">
+                                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="Brand Logo" class="profile-pic">
+                                    <div class="profile-names">
+                                        <h4 class="brand-name-text">EcoMug Co.</h4>
+                                        <span class="subtext">Original Audio</span>
+                                    </div>
+                                    <i class="fa-brands fa-instagram platform-brand-icon"></i>
+                                </div>
+                                <div class="instagram-image-container">
+                                    <img id="insta-preview-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80" alt="Post Image">
+                                    <div class="img-overlay"><i class="fa-solid fa-wand-magic-sparkles"></i> Generated Image Placeholder</div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="insta-actions">
+                                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-regular fa-comment"></i>
+                                        <i class="fa-regular fa-paper-plane"></i>
+                                    </div>
+                                    <div class="insta-caption">
+                                        <strong>ecomugco</strong> <span class="post-text-content" id="instagram-preview-text">Your generated Instagram caption will appear here.</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Facebook Card Preview -->
+                            <div class="platform-card facebook-card" id="preview-card-facebook">
+                                <div class="card-header">
+                                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="Brand Logo" class="profile-pic">
+                                    <div class="profile-names">
+                                        <h4 class="brand-name-text">EcoMug Co.</h4>
+                                        <span class="subtext">Sponsored • <i class="fa-solid fa-earth-americas"></i></span>
+                                    </div>
+                                    <i class="fa-brands fa-square-facebook platform-brand-icon"></i>
+                                </div>
+                                <div class="card-body">
+                                    <p class="post-text-content" id="facebook-preview-text">Your generated Facebook post will appear here.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <span><i class="fa-regular fa-thumbs-up"></i> Like</span>
+                                    <span><i class="fa-regular fa-comment"></i> Comment</span>
+                                    <span><i class="fa-solid fa-share-nodes"></i> Share</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Schedule Card -->
+                        <div class="actions-panel glass">
+                            <div class="scheduler-inputs">
+                                <div class="form-group">
+                                    <label for="post-schedule-date">Schedule Date</label>
+                                    <input type="date" id="post-schedule-date">
+                                </div>
+                                <div class="form-group">
+                                    <label for="post-schedule-time">Schedule Time</label>
+                                    <input type="time" id="post-schedule-time" value="12:00">
+                                </div>
+                            </div>
+                            <button id="btn-schedule-post" class="btn btn-secondary" disabled>
+                                <i class="fa-solid fa-calendar-check"></i> Schedule Post
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- AI Image Designer View -->
+            <section id="view-imagegen" class="content-view">
+                <div class="two-column-layout">
+                    <!-- Image Generation Request -->
+                    <div class="editor-panel glass">
+                        <h3>AI Image Generator</h3>
+                        <div class="form-group">
+                            <label for="image-prompt">Describe the image you want to create</label>
+                            <textarea id="image-prompt" placeholder="e.g. A premium insulated coffee mug sitting on a rustic wooden desk, morning light stream through window, cozy coffee shop vibe, hyper-realistic, highly detailed."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="image-style">Art Style</label>
+                                <select id="image-style">
+                                    <option value="photorealistic">Photorealistic</option>
+                                    <option value="minimalist">Minimalist Flat Vector</option>
+                                    <option value="3d-render">3D Render Studio</option>
+                                    <option value="watercolor">Digital Watercolor</option>
+                                    <option value="cyberpunk">Cyberpunk / Synthwave</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="image-ratio">Aspect Ratio</label>
+                                <select id="image-ratio">
+                                    <option value="1:1" selected>Square (1:1 - Instagram)</option>
+                                    <option value="16:9">Landscape (16:9 - YouTube/Web)</option>
+                                    <option value="9:16">Portrait (9:16 - Reels/TikTok/Story)</option>
+                                    <option value="4:5">Vertical (4:5 - LinkedIn/FB)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button id="btn-generate-image" class="btn btn-primary btn-block">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Asset
+                        </button>
+                    </div>
+                    <!-- Generation Output Panel -->
+                    <div class="image-output-panel glass">
+                        <h3>Generated Asset Preview</h3>
+                        <div class="image-display-box" id="image-display-box">
+                            <div class="empty-state">
+                                <i class="fa-regular fa-image"></i>
+                                <p>Describe your image asset and click Generate. Your creation will appear here.</p>
+                            </div>
+                            <div class="loading-state hidden" id="image-loading-state">
+                                <div class="spinner"></div>
+                                <p id="image-loading-text">Dreaming up your art asset...</p>
+                                <div class="progress-bar-outer"><div class="progress-bar-inner" id="image-progress-bar"></div></div>
+                            </div>
+                            <img id="generated-image-result" class="hidden" src="" alt="AI Output Asset">
+                        </div>
+                        <div class="image-actions hidden" id="generated-image-actions">
+                            <button id="btn-use-in-post" class="btn btn-primary">
+                                <i class="fa-solid fa-pen-nib"></i> Use in AI Writer
+                            </button>
+                            <a id="btn-download-image" href="#" class="btn btn-secondary" download="aura-ai-generation.jpg">
+                                <i class="fa-solid fa-download"></i> Download
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Gallery Row -->
+                <div class="gallery-container glass">
+                    <div class="box-header">
+                        <h3>AuraAI Creative Gallery</h3>
+                    </div>
+                    <div class="gallery-grid" id="image-gallery-grid">
+                        <!-- Custom gallery assets filled dynamically -->
+                    </div>
+                </div>
+            </section>
+            <!-- Scheduler View -->
+            <section id="view-scheduler" class="content-view">
+                <div class="calendar-container glass">
+                    <div class="calendar-header">
+                        <div class="calendar-controls">
+                            <button id="calendar-prev-month" class="btn-icon"><i class="fa-solid fa-chevron-left"></i></button>
+                            <h2 id="calendar-month-year">July 2026</h2>
+                            <button id="calendar-next-month" class="btn-icon"><i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="calendar-actions">
+                            <button id="calendar-btn-today" class="btn btn-secondary">Today</button>
+                            <button id="calendar-btn-new-post" class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Post</button>
+                        </div>
+                    </div>
+                    <div class="calendar-legend">
+                        <span class="legend-item"><span class="legend-dot twitter"></span> X/Twitter</span>
+                        <span class="legend-item"><span class="legend-dot linkedin"></span> LinkedIn</span>
+                        <span class="legend-item"><span class="legend-dot instagram"></span> Instagram</span>
+                        <span class="legend-item"><span class="legend-dot facebook"></span> Facebook</span>
+                    </div>
+                    <!-- Days of Week Header -->
+                    <div class="calendar-grid-header">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <!-- Month Grid Dates -->
+                    <div class="calendar-grid-days" id="calendar-grid-days">
+                        <!-- Injected via JavaScript -->
+                    </div>
+                </div>
+            </section>
+            <!-- Smart Inbox View -->
+            <section id="view-inbox" class="content-view">
+                <div class="inbox-layout">
+                    <!-- Mentions/Comments List -->
+                    <div class="inbox-list-panel glass">
+                        <div class="box-header">
+                            <h3>Brand Mentions</h3>
+                            <span class="badge" id="inbox-unresolved-count">3 Unresolved</span>
+                        </div>
+                        <div class="inbox-list" id="inbox-mentions-container">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                    <!-- Reply Details Panel -->
+                    <div class="inbox-detail-panel glass" id="inbox-detail-panel">
+                        <div class="empty-state" id="inbox-detail-empty">
+                            <i class="fa-solid fa-envelope-open"></i>
+                            <p>Select a mention to perform sentiment analysis and generate replies.</p>
+                        </div>
+                        
+                        <div class="inbox-detail-content hidden" id="inbox-detail-content">
+                            <div class="detail-header">
+                                <div class="user-info-large">
+                                    <img src="" alt="User Avatar" class="avatar" id="detail-avatar">
+                                    <div class="detail-names">
+                                        <h4 id="detail-user-name">Marcus Aurelius</h4>
+                                        <span id="detail-user-handle">@marcus_aur</span>
+                                    </div>
+                                </div>
+                                <div class="detail-platform-badge" id="detail-platform-badge">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </div>
+                            </div>
+                            <div class="detail-message-body glass">
+                                <p id="detail-message-text">Message content here.</p>
+                                <div class="sentiment-indicator-bar" id="detail-sentiment-bar">
+                                    <span>Sentiment Analysis:</span>
+                                    <span class="badge" id="detail-sentiment-badge">Positive</span>
+                                </div>
+                            </div>
+                            <div class="ai-reply-generation-box">
+                                <div class="reply-box-header">
+                                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> AuraAI Smart Reply Assistant</h4>
+                                    <button class="btn btn-secondary btn-sm" id="btn-inbox-reply-tone">
+                                        Tone: <span id="inbox-reply-tone-label">Professional</span> <i class="fa-solid fa-caret-down"></i>
+                                    </button>
+                                </div>
+                                
+                                <textarea id="inbox-reply-textarea" placeholder="AI-generated reply suggestion will load here..."></textarea>
+                                
+                                <div class="reply-actions">
+                                    <button id="btn-inbox-regenerate" class="btn btn-secondary btn-sm">
+                                        <i class="fa-solid fa-rotate"></i> Regenerate
+                                    </button>
+                                    <button id="btn-inbox-send" class="btn btn-primary btn-sm">
+                                        <i class="fa-solid fa-paper-plane"></i> Send Reply & Resolve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Settings View -->
+            <section id="view-settings" class="content-view">
+                <div class="settings-layout">
+                    <!-- General Settings -->
+                    <div class="settings-card glass">
+                        <h3>Brand & AI Configuration</h3>
+                        
+                        <div class="form-group">
+                            <label for="settings-brand-name">Brand Display Name</label>
+                            <input type="text" id="settings-brand-name" value="EcoMug Co.">
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-brand-handle">Social Handle Prefix</label>
+                            <input type="text" id="settings-brand-handle" value="EcoMugCo">
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-brand-niche">Brand Niche / Description</label>
+                            <textarea id="settings-brand-niche" rows="3">Sustainable drinkware, eco-conscious consumer products, and modern reusable lifestyles.</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="settings-model">Selected AI Model</label>
+                            <select id="settings-model">
+                                <option value="gemini-flash" selected>Gemini 1.5 Flash (Fast, General-purpose)</option>
+                                <option value="gemini-pro">Gemini 1.5 Pro (Analytical, Multi-turn)</option>
+                                <option value="gpt-4o">GPT-4o (Creative Writing)</option>
+                            </select>
+                        </div>
+                        <button id="btn-save-settings" class="btn btn-primary">Save Brand Config</button>
+                    </div>
+                    <!-- API Integrations -->
+                    <div class="settings-card glass">
+                        <h3>API Credentials (Demo Sandbox)</h3>
+                        <p class="text-muted mb-4">Credentials entered here are simulated and stored securely in local state storage only.</p>
+                        
+                        <div class="form-group">
+                            <label for="api-openai">OpenAI API Key</label>
+                            <input type="password" id="api-openai" placeholder="sk-proj-••••••••••••••••••••••••" value="sk-proj-demo-key-12345678">
+                        </div>
+                        <div class="form-group">
+                            <label for="api-gemini">Google Gemini API Key</label>
+                            <input type="password" id="api-gemini" placeholder="AIzaSy••••••••••••••••••••••••" value="AIzaSy-demo-key-87654321">
+                        </div>
+                        <div class="settings-status-box">
+                            <span class="status-indicator active"></span>
+                            <span>Sandbox Connection: Active (Simulated Credentials)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <!-- Modal for new post creation inside Scheduler -->
+    <div class="modal-overlay hidden" id="scheduler-modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h3>Schedule New Post</h3>
+                <button class="modal-close" id="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="modal-post-platform">Platform</label>
+                    <select id="modal-post-platform">
+                        <option value="twitter">X/Twitter</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="facebook">Facebook</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="modal-post-text">Post Content</label>
+                    <textarea id="modal-post-text" placeholder="Write or paste your social media update here..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="modal-post-date">Date</label>
+                        <input type="date" id="modal-post-date">
+                    </div>
+                    <div class="form-group">
+                        <label for="modal-post-time">Time</label>
+                        <input type="time" id="modal-post-time" value="09:00">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="btn-modal-cancel">Cancel</button>
+                <button class="btn btn-primary" id="btn-modal-save">Schedule</button>
+            </div>
+        </div>
+    </div>
+    <!-- Background task status or notification toasts -->
+    <div class="toast-container" id="toast-container"></div>
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/writer.js"></script>
+    <script src="js/imageGen.js"></script>
+    <script src="js/scheduler.js"></script>
+    <script src="js/inbox.js"></script>
+</body>
+</html>
